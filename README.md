@@ -9,30 +9,9 @@ Observability & safeguards: metrics, explainers, rollback, and resource caps.
 
  High‑level architecture
 
-+---------------------+        +----------------------+      +----------------+
-|  Environment / Data | -----> | Perception module    | ---> | ENN core       |
-|  (streaming + tasks)|        | (encoders, buffers)  |      | (weights + arch)
-+---------------------+        +----------------------+      +----------------+
-                                                            /        |\
-                                                           /         |
-                                   +----------------+     /   +-------------+
-                                   | Replay Memory  |<--/    | Evolutionary |
-                                   | (episodic, buf)|         | Engine       |
-                                   +----------------+         +-------------+
-                                                                 |
-                                                                 v
-                                                         +-------------------+
-                                                         | Meta‑Proposer     |
-                                                         | (code generator)  |
-                                                         +-------------------+
-                                                                 |
-                                            (sandboxed test & validation suite)
-                                                                 |
-                                                                 v
-                                                         +-------------------+
-                                                         | Change Manager    |
-                                                         | (apply/rollback)  |
-                                                         +-------------------+
+Data/Environment → Perception → ENN Core → Evolution Engine
+↓
+Meta‑Proposer → Sandbox → Change Manager
 
 Modules explained:
 Perception module: preprocesses raw inputs into embeddings; also runs anomaly detection.
